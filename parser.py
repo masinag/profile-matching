@@ -29,7 +29,6 @@ def get_topics(profile):
     return topics
 
 def translate_topics(lang, topics):
-    assert len(lang) == 2
     topics_titles = 'Category:' + '|Category:'.join(topics)
     request_url = 'https://' + lang + '.wikipedia.org/w/api.php'
     params = {
@@ -47,13 +46,11 @@ def translate_topics(lang, topics):
     for page in page_list:
         page_info = page_list[page]
         topic = normalize_topic_string(page_info['title'])
-        assert topic in topics
         if 'langlinks' in page_info:
             translation = normalize_topic_string(page_info['langlinks'][0]['*'])
         else:
             translation = topic
         translated_dict[(lang, topic)] = translation
-    assert len(lang) == 2
     
     return translated_dict
 
