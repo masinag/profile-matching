@@ -27,3 +27,22 @@ python3 main.py --help
 ``` 
 for further options.
 
+
+## Dockerize
+There is also the possibility to dockerize the project by running the command
+```bash
+docker build -t profile-matching
+```
+Then you can run it with the command
+```bash
+docker run profile-matching [command line arguments]
+```
+
+If you use docker, to add a file or a directory to the docker image, modify the Dockerfile
+by adding another line like 
+```docker
+COPY <path_to_your_file_or_dir> <path_where_to_copy_it_on_docker_image>
+```
+where the second parameter always starts with a `/`
+
+For more infos see [Docker's documentations](https://docs.docker.com/engine/reference/builder/)
