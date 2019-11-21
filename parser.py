@@ -8,7 +8,7 @@ def path_to_id(profile_path):
 
 def url_to_topic(url):
     topic = urllib.parse.unquote(url).split('/wiki/')[-1]
-    return topic[topic.find(':')+1:].lower()
+    return topic[topic.find(':')+1:]
 
 def url_to_lang(url):
     return urllib.parse.unquote(url).split('://')[1].split('.')[0]
@@ -17,7 +17,7 @@ def url_to_lang_topic(url):
     return (url_to_lang(url), url_to_topic(url))
 
 def normalize_topic_string(topic_string):
-    return topic_string[topic_string.find(':')+1:].replace(' ', '_').lower()
+    return topic_string[topic_string.find(':')+1:].replace(' ', '_')
 
 def get_topics(profile):
     topics = {}
@@ -79,21 +79,25 @@ def get_and_translate_topics(profile):
             topics[translation] = topics.get(translation, 0) + parsed_profile[(lang, topic)]
     return topics
 
+def get_parsed_profile(profile, translate = False):
+    get_topics_fn = get_and_translate_topics if translate else get_topics
+    return get_topics_fn(profile)
+
+def get_parsed_profiles(profiles, translate = False):
+    return [get_parsed_profile(profile, translate) for profile in profiles]
+
 # throws FileNotFoundError, IsADirectoryError, json.decoder.JSONDecodeError
-def get_profile_by_file(profile_path, translate):
+def get_profile_by_file(profile_path):
     with open(profile_path) as f:
         profile = json.load(f)
-
-    get_topics_fn = get_and_translate_topics if translate else get_topics
-
-    return path_to_id(profile_path), get_topics_fn(profile)
-
-def get_profiles_by_dir(profiles_dir, translate):
+    return path_to_id(profile_path), profile
+    
+def get_profiles_by_dir(profiles_dir):
     profiles = []
     ids = []
     for filename in os.listdir(profiles_dir):
         if filename.endswith('.json') and not filename.startswith('.'):
-            profoile_id, profile = get_profile_by_file(profiles_dir + filename, translate)
+            profoile_id, profile = get_profile_by_file(profiles_dir + filename)
             ids.append(profoile_id)
             profiles.append(profile)
 
