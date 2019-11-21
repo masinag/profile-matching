@@ -1,4 +1,5 @@
 import json, os, urllib.parse, requests
+import itertools as it
 
 _EN = 'en'
 
@@ -28,6 +29,7 @@ def get_topics(profile):
             topics[topic] += times
     return topics
 
+#throws connection error
 def translate_topics(lang, topics):
     topics_titles = 'Category:' + '|Category:'.join(topics)
     request_url = 'https://' + lang + '.wikipedia.org/w/api.php'
@@ -59,7 +61,7 @@ def get_translated_topics(to_translate):
     translations = {}
     for lang in to_translate:
         for i in range(0, len(to_translate[lang]), LIMIT):
-            translations.update(translate_topics(lang, to_translate[lang][i: i+LIMIT]))
+            translations.update(translate_topics(lang, it.islice(to_translate[lang], i, i+LIMIT)))
     return translations
 
 def get_and_translate_topics(profile):
@@ -84,14 +86,15 @@ def get_profile_by_file(profile_path, translate):
 
     get_topics_fn = get_and_translate_topics if translate else get_topics
 
-    return {
-            'id' : path_to_id(profile_path),
-            'topics' : get_topics_fn(profile)
-            }
+    return path_to_id(profile_path), get_topics_fn(profile)
+
 def get_profiles_by_dir(profiles_dir, translate):
     profiles = []
+    ids = []
     for filename in os.listdir(profiles_dir):
         if filename.endswith('.json') and not filename.startswith('.'):
-            profiles.append(get_profile_by_file(profiles_dir + filename, translate))
+            profoile_id, profile = get_profile_by_file(profiles_dir + filename, translate)
+            ids.append(profoile_id)
+            profiles.append(profile)
 
-    return profiles
+    return ids, profiles

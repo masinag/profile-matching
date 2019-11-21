@@ -4,10 +4,10 @@ from matcher import match
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 
 def main(args):
-    profile = get_profile_by_file(args.profile_path, args.translate)
-    cmp_profiles = get_profiles_by_dir(args.cmp_profiles_dir, args.translate)
+    _, profile = get_profile_by_file(args.profile_path, args.translate)
+    cmp_ids, cmp_profiles = get_profiles_by_dir(args.cmp_profiles_dir, args.translate)
 
-    print(match(profile, cmp_profiles))
+    print(match(profile, cmp_profiles, cmp_ids))
 
 if __name__ == "__main__":
     ap = ArgumentParser(description=
