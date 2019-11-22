@@ -2,6 +2,8 @@ import os, json
 from matcher import match
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 
+
+
 def path_to_id(profile_path):
     """
     Convert the profile path to an id. 
@@ -75,7 +77,7 @@ def main(profile_path, cmp_profiles_dir, translate):
     try:
         _, profile = get_profile_by_file(profile_path)
         cmp_ids, cmp_profiles = get_profiles_by_dir(cmp_profiles_dir)
-        results = match(profile, cmp_profiles, cmp_ids)
+        results = match(profile, cmp_profiles, cmp_ids, translate)
         for i, (id, match_values) in enumerate(results):
             print("Algorithm %d" % (i+1))
             for j in range(len(match_values)):

@@ -46,3 +46,8 @@ COPY <path_to_your_file_or_dir> <path_where_to_copy_it_on_docker_image>
 where the second parameter always starts with a `/`
 
 For more infos see [Docker's documentations](https://docs.docker.com/engine/reference/builder/)
+
+#TODO: 
+! sample profiles
+readme
+dockerize
