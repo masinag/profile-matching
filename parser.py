@@ -3,6 +3,14 @@ import itertools as it
 
 _EN = 'en'
 
+def values_to_percentage(profile):
+    """
+    Converts values to percentage
+    """
+    coeff =  100 / sum(profile.values())
+    for topic in profile:
+        profile[topic] *= coeff
+
 def path_to_id(profile_path):
     return profile_path.rstrip('.json').split('/')[-1]
 
@@ -29,6 +37,8 @@ def get_topics(profile):
             topics[topic] += times
     return topics
 
+
+#to do: save translated profiles, api to translate
 #throws connection error
 def translate_topics(lang, topics):
     topics_titles = 'Category:' + '|Category:'.join(topics)
