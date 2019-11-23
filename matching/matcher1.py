@@ -1,3 +1,25 @@
+"""
+Implements an algorithm to evaluate the similarity of a user profile 
+against a set of existing ones.
+
+Algorithm:
+
+Let cmp_profiles be the set of existing profiles, and let profile be 
+the profile of which we want to find the most similar one.
+
+Each cmp_profile is assigned a match_value which represent the 
+similarity with profile, and the one with the highest value is said the 
+most similar.
+
+When confronting two profiles, each topic which has been discussed by 
+both profiles contributes to the match_value with a score which is 
+proportional to the similarity of the discussion percentage of the topic 
+in the two profiles. 
+
+This value is multiplied by the lowest of the two percentages, so that 
+if the two percentages are very similar but they are very low, this does 
+not contribute much to the match_value.
+"""
 import math
 
 

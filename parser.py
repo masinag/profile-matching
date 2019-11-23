@@ -1,3 +1,7 @@
+"""
+Contains functions to clean-up topic names for a profile and translate 
+them if requested. Topic names are translated using the Wikipedia API.
+"""
 import json
 import os
 import urllib.parse

@@ -1,4 +1,10 @@
-from parser import get_parsed_profile, get_parsed_profiles, values_to_percentage
+"""
+Contains the functions to do the comparison between the profile and the 
+cmp_profiles and to get the most similar one. It uses functions defined 
+in the matching package.
+"""
+from parser import get_parsed_profile, get_parsed_profiles, \
+    values_to_percentage
 from matching.matcher1 import match as match1
 from matching.matcher2 import match as match2
 

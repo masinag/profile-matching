@@ -1,3 +1,11 @@
+"""
+Runnable script which takes the path to the profile's json-file and the 
+path to the directory containing the json-files of the cmp_profiles. 
+It calls the API functions to do the matching and prints their result. 
+
+It offers also the possibility to translate the topics from foreign 
+languages to English when possible by setting a flag.
+"""
 import os
 import json
 import requests
