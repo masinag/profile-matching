@@ -57,13 +57,13 @@ will compare the profile `sample_profiles/roger_like.json` to all profiles in di
 There is also the possibility to dockerize the project by running the command
 
 ```bash
-docker build -t profile-matching
+docker build -t profile-matching .
 ```
 
 Then you can run it with the command
 
 ```bash
-docker run profile-matching profile path_to_the_json_profile [optional_arguments]
+docker run profile-matching path_to_the_json_profile [optional_arguments]
 ```
 
 If you use docker, to add a file or a directory to the docker image, modify the Dockerfile by adding another line like
