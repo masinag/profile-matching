@@ -9,7 +9,7 @@ languages to English when possible by setting a flag.
 import os
 import json
 import requests
-from matcher import match
+from matching.matcher import match
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 
 

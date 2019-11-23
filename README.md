@@ -19,11 +19,12 @@ The `algorithm2`, when confronting two profiles, builds a ranking of topics for 
 ### Modules and packages
 
 * `main.py` is the runnable script which takes the path to the `profile`'s json-file and the path to the directory containing the json-files of the `cmp_profiles`. It calls the API functions to do the matching and prints their result. It offers also the possibility to translate the topics from foreign languages to English when possible by setting a flag.
-* `parser.py` contains functions to clean-up topic names for a profile and translate them if requested. Topic names are translated using the Wikipedia API.
-* `matcher.py` contains functions to do the comparison between the `profile` and the `cmp_profiles` and to get the most similar one. It uses functions defined in the `matching` package.
 * package `matching`:
-  * `matcher1.py`: contains the implementation of the `algorithm1`.
-  * `matcher2.py`: contains the implementation of the `algorithm2`.
+  * `algorithm1.py`: contains the implementation of the `algorithm1`.
+  * `algorithm2.py`: contains the implementation of the `algorithm2`.
+  * `matcher.py` contains functions to do the comparison between the `profile` and the `cmp_profiles` and to get the most similar one. It uses functions defined in the `matching` package.
+  * package `parsing`:
+    * `parser.py` contains functions to clean-up topic names for a profile and translate them if requested. Topic names are translated using the Wikipedia API.
 
 ### Other resources
 
@@ -50,6 +51,7 @@ Example:
 ```bash
 python3 main.py sample_profiles/roger_like.json --cmp_profiles_dir tapoi_models/translated/
 ```
+
 will compare the profile `sample_profiles/roger_like.json` to all profiles in directory `tapoi_models/translated/`
 
 ## Dockerize
