@@ -45,6 +45,12 @@ For further options run
 python3 main.py --help
 ```
 
+Example:
+
+```bash
+python3 main.py sample_profiles/roger_like.json --cmp_profiles_dir tapoi_models/translated/
+```
+
 ## Dockerize
 
 There is also the possibility to dockerize the project by running the command

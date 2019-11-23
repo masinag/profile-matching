@@ -11,6 +11,7 @@
 log
 infos
 translate_profiles.py
+.vscode/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

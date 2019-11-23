@@ -11,10 +11,10 @@ Each cmp_profile is assigned a match_value which represent the
 similarity with profile, and the one with the highest value is said the 
 most similar.
 
-When confronting two profiles, each topic which has been discussed by 
-both profiles contributes to the match_value with a score which is 
-proportional to the similarity of the discussion percentage of the topic 
-in the two profiles. 
+When confronting two profiles, each topic discussed by both profiles 
+contributes to the match_value with a score proportional to the 
+similarity of the discussion percentage of the topic in the two 
+profiles. 
 
 This value is multiplied by the lowest of the two percentages, so that 
 if the two percentages are very similar but they are very low, this does 
