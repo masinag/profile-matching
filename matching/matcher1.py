@@ -1,19 +1,36 @@
 import math
 
+
 def get_similarity(value1, value2):
     """
-    Evaluate the similarity of two discussion percentages for the same topic.
+    Evaluate the similarity of two discussion percentages for a topic.
+
+    Args:
+        value1: discussion percentage of the topic in the first profile
+        value2: discussion percentage of the topic in the second profile
+
+    Returns:
+        A value representing the similarity of the two percentages.
     """
     diff = abs(value1-value2)
-    return math.exp(-(diff**2) / 1000 ) * min(value1, value2)
+    return math.exp(-(diff**2) / 1000) * min(value1, value2)
+
 
 def match_value(profile1, profile2):
     """
-    Find a value which evaluates the similarity between the two profiles.
+    Evaluate the similarity of two profiles.
 
-    Each topic which has been discussed by both profiles contributes to the match_value, 
-    with a score which is proportional to the similarity of the discussion percentage of 
-    the topic in the two profiles and to the lowest of the two percentages.
+    Each topic discussed by both profiles contributes to the match_value
+    with a score proportional to the similarity of its discussion 
+    percentages in the two profiles and to the lowest of the two values.
+
+    Args:
+        profile1: first profile to compare
+        profile2: second profile to compare
+
+    Returns:
+        The match value which evaluates the similarity between the two 
+        profiles
     """
     value = 0
     for topic, times1 in profile1.items():
@@ -22,27 +39,31 @@ def match_value(profile1, profile2):
             value += sim
     return value
 
+
 def match(profile, cmp_profiles):
     """
     Find the profile in cmp_profiles which is most similar to profile.
 
-    Each cmp_profile is assigned a match_value which represent the similarity with profile,
-    and the cmp_profile with the highest value is said the most similar.
-    The value is computed by confronting the similarity of the percentages with wich each topic
-    has been discussed the profiles.
+    Each cmp_profile is assigned a match_value which represents the 
+    similarity with profile. The cmp_profile with the highest value is 
+    said the most similar.
+    The value is computed by confronting the the percentages with which 
+    each topic has been discussed by the profiles.
 
     Args:
-        profile: The profile foe which you want to find the most similar one. Each topic should
-                 be associated with the percentage of discussions about it over all discussions.
-        cmp_profiles: The profiles with which the comparison is done. For each profile, each topic should
-                 be associated with the percentage of discussions about it over all discussions of that
-                 profile.
-    
+        profile: the profile for which to find the most similar one. 
+            Each topic should be associated with its percentage of 
+            discussions over all discussions
+        cmp_profiles: list of profiles with which the comparison is 
+            done. For each profile, each topic should be associated 
+            with its percentage of discussion over all discussions of 
+            the profile
+
     Returns:
-        A tuple with the index of the cmp_profile most similar to profile and a list with the similarity
-        values for each profile.
+        a tuple with the index of the cmp_profile most similar to 
+        profile and a list with the similarity values for each profile
     """
-    best_match_id = 0
+    best_match_id = None
     best_match_value = 0
     match_values = []
 
