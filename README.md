@@ -1,19 +1,30 @@
 # profile-matching
-API which allows to evaluate the similarity of a user profile against a set of existing ones
+API which allows to evaluate the similarity of a user profile against a set of existing ones.
+
+A profile is represented by a dictionary where each topic is associated with the number of times the user has discussed about that topic. Topics are urls of Wikipedia categories.
+
+## The matching
+There are two algorithms to find the most similar profile. Let `cmp_profiles` be the set of existing profiles, and let `profile` be the profile of which we want to find the most similar one.
+
+In both algorithms each `cmp_profile` is assigned a `match_value` which represent the similarity with profile, and the one with the highest value is said the most similar. Both are based on the percentage of discussion of each topic on the total of discussions.
+
+In the `algorithm1`, when confronting two topics, each topic which has been discussed by both profiles contributes to the `match_value` with a score which is proportional to the similarity of the discussion percentage of the topic in the two profiles. This value is multiplied by the lowest of the two percentages, so that if the two percentages are very similar but they are very low, this does not contribute much to the `match_value`.
+
+The `algorithm2`, when confronting two profiles, builds a ranking of topics for each profile, where the score is represented by the percentage with which the topic has been discussed. Topics with a similar score belong to the same position in the ranking. The `match_value` of two profiles is computed by confronting the similarity of the position of each topic in the rankings of the two profiles.
 
 ## Project structure
-The project consists of 3 main modules:
-* `main.py` is the runnable script which takes the path to the profile json-file and the path to the
-            dir containing the json-files of the profiles to compare the profile with. It offers also the
-            possibility to translate the topics in foreign languages to english when possible by 
-            setting a flag.
-* `parser.py` contains functions to read the json files to get a python dictionary with the topic names
-            cleaned-up and translated if requested. Topic names are translated usign the Wikipedia API.
-* `matcher.py` contains the functions to do the match between the given profile and the files to compare 
-            it with and to get the most similar profile.
-
-It contains a directory `/tapoi_models/` which is the default directory in which the profiles with which
-doing the comparison are stored.
+### Modules and packages:
+* `main.py` is the runnable script which takes the path to the `profile`'s json-file and the path to the directory containing the json-files of the `cmp_profiles`. Calls the API functions to do the matching and prints their result. It offers also the possibility to translate the topics in foreign languages to English when possible by setting a flag.
+* `parser.py` contains functions to clean-up topic names for a profile and translate them if requested. Topic names are translated using the Wikipedia API.
+* `matcher.py` contains the functions to do the comparison between the `profile` and the `cmp_profiles` and to get the most similar one. It uses functions defined in the `matching` package.
+* package `matching`:
+   * `matcher1.py`: contains the implementation of the `algorithm1`.
+   * `matcher2.py`: contains the implementation of the `algorithm2`.
+   
+### Other resources:
+* Directory `tapoi_models/`: is the default directory in which the profiles with which doing the comparison are stored.
+   * `translated`: contains a version of default profiles where topics not in English for which the translation is available are translated to English.
+* Directory `sample_profiles/`: contains some examples of profiles for which the most similar can be found.
 
 ## Installation and run
 To run the project simply clone the repository and run the main script by running the command 
@@ -21,11 +32,10 @@ To run the project simply clone the repository and run the main script by runnin
 python3 main.py <path_to_the_json_profile>
 ```
 
-Type 
+For further options run 
 ```bash
 python3 main.py --help
 ``` 
-for further options.
 
 
 ## Dockerize
@@ -46,8 +56,3 @@ COPY <path_to_your_file_or_dir> <path_where_to_copy_it_on_docker_image>
 where the second parameter always starts with a `/`
 
 For more infos see [Docker's documentations](https://docs.docker.com/engine/reference/builder/)
-
-#TODO: 
-! sample profiles
-readme
-dockerize
