@@ -22,7 +22,7 @@ The `algorithm2`, when confronting two profiles, builds a ranking of topics for 
 * package `matching`:
   * `algorithm1.py`: contains the implementation of the `algorithm1`.
   * `algorithm2.py`: contains the implementation of the `algorithm2`.
-  * `matcher.py` contains functions to do the comparison between the `profile` and the `cmp_profiles` and to get the most similar one. It uses functions defined in the `matching` package.
+  * `matcher.py` contains functions to do the comparison between the `profile` and the `cmp_profiles` and to get the most similar one, using the two algorithms.
   * package `parsing`:
     * `parser.py` contains functions to clean-up topic names for a profile and translate them if requested. Topic names are translated using the Wikipedia API.
 
